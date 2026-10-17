@@ -1,0 +1,14 @@
+{
+  "name": "montazhnaya",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Офлайн видеоредактор для Windows",
+  "scripts": {
+    "start": "node editor/server.js",
+    "check": "node --check editor/app.js && node --check desktop/main.cjs",
+    "build:windows": "python tools/build-windows.py"
+  },
+  "devDependencies": {
+    "electron": "44.8.0"
+  }
+}

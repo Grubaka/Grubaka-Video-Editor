@@ -1,0 +1,17 @@
+node_modules/
+dist/
+build/
+work/
+__pycache__/
+*.pyc
+**/audio-engine.local.json
+*.exe
+*.dll
+*.ckpt
+*.pt
+*.pth
+*.wav
+*.mp4
+*.webm
+*.mp3
+*.log

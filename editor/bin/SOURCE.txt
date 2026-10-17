@@ -1,0 +1,6 @@
+FFmpeg Windows essentials build by Gyan Doshi
+https://www.gyan.dev/ffmpeg/builds/
+https://ffmpeg.org/download.html
+Archive SHA256: 60f467265b1e312373dbcd92200c2618a74850f98d3d078e94296bb3fa2047ba
+Build sources: https://github.com/FFmpeg/FFmpeg
+License: GPLv3, see LICENSE.
