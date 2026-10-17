@@ -12,6 +12,7 @@ class GuideParser(HTMLParser):
         self.translation_json = []
         self.strings = set()
         self.images = []
+        self.localized_nodes = 0
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -24,6 +25,14 @@ class GuideParser(HTMLParser):
             self.add(attrs.get(name, ""))
         if tag == "img":
             self.images.append(attrs["src"])
+        if "data-guide-en" in attrs or "data-guide-ru" in attrs:
+            self.localized_nodes += 1
+            for language in ("ru", "en"):
+                localized = json.loads(attrs["data-guide-" + language])
+                if not isinstance(localized, dict) or not localized:
+                    raise ValueError("Invalid localized illustration attributes")
+                if tag == "img":
+                    self.images.append(localized["src"])
 
     def handle_endtag(self, tag):
         if tag in ("script", "style"):
@@ -49,7 +58,7 @@ if missing:
     raise SystemExit("Missing English translations:\n" + "\n".join(sorted(missing)))
 if any(not isinstance(value, str) or not value.strip() for value in translations.values()):
     raise SystemExit("Empty or invalid English translation")
-for image in parser.images:
+for image in set(parser.images):
     if not (guide.parent / image).is_file():
         raise SystemExit("Missing guide image: " + image)
-print(f"Guide OK: {len(parser.strings)} Russian strings have English translations; {len(parser.images)} illustrations exist.")
+print(f"Guide OK: {len(parser.strings)} Russian strings have English translations; {len(set(parser.images))} images exist; {parser.localized_nodes} illustration elements have both languages.")
