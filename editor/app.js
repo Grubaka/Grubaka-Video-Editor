@@ -858,6 +858,29 @@
       }project.trackLayoutVersion=1;
     });for(const {asset} of prepared)queueAssetAnalysis(asset);if(focus)selectItem(focus.id);seek(source.start);return focus;
   }
+  async function offerAudioModule(dialog,status,progress,abort){
+    const text=value=>window.editorI18n?.translate(value)||value;
+    const request=async(route,options={})=>{const response=await fetch('/api/audio-module/'+route,{...options,signal:abort.signal});if(!response.ok)throw Error(text('Не удалось подключить аудиомодуль'));return response.json()};
+    let info=await request('info'),moduleToken=info.token;
+    const stopModule=()=>{fetch('/api/audio-module/cancel',{method:'POST',headers:{'X-Audio-Module-Token':moduleToken}}).catch(()=>{})};
+    abort.signal.addEventListener('abort',stopModule,{once:true});
+    const download=document.createElement('button');download.type='button';download.className='accent-btn';download.textContent='Скачать модуль разделения звука';
+    const note=document.createElement('p');note.className='note';note.textContent='Модуль скачивается один раз. Python устанавливать не нужно. После загрузки разделение работает без интернета.';
+    const size=document.createElement('p');size.className='note';size.textContent=Math.ceil(info.bytes/1024**2)+' MB';dialog.insertBefore(note,progress);dialog.insertBefore(size,progress);dialog.insertBefore(download,progress);
+    try{
+      status.textContent='Для разделения речи, музыки и звуков нужен дополнительный модуль.';progress.hidden=true;
+      if(!['downloading','extracting','installing','installed'].includes(info.status))await new Promise((resolve,reject)=>{const cancel=()=>reject(Error('Отменено'));abort.signal.addEventListener('abort',cancel,{once:true});download.onclick=()=>{abort.signal.removeEventListener('abort',cancel);resolve()}});
+      download.hidden=true;progress.hidden=false;
+      if(info.status!=='installed')await request('install',{method:'POST',headers:{'X-Audio-Module-Token':moduleToken}});
+      while(true){
+        if(abort.signal.aborted)throw Error('Отменено');info=await request('info');
+        if(info.status==='installed')break;if(info.status==='error')throw Error(text('Не удалось загрузить модуль. Повторите попытку.')+' '+(info.error||''));if(info.status==='cancelled')throw Error('Отменено');
+        status.textContent=info.status==='downloading'?text('Скачиваю модуль разделения звука…')+' '+Math.floor(info.received/info.total*100)+'%':text('Проверяю и подключаю модуль…');progress.max=info.total||1;progress.value=info.received||0;
+        await new Promise(resolve=>setTimeout(resolve,500));
+      }
+      status.textContent='Модуль подключён. Подготавливаю разделение…';
+    }finally{abort.signal.removeEventListener('abort',stopModule);note.remove();size.remove();download.remove();progress.hidden=false;progress.removeAttribute('value')}
+  }
   async function separateAudioClip(id,focusStem){
     if(exporting||separationActive)return;
     const selectedSource=findItem(id)?.item;
@@ -871,7 +894,7 @@
     const request=async(url,options={})=>{const response=await fetch('/api/audio-separator'+url,{...options,signal:abort.signal,headers:{'X-Audio-Token':token||'',...options.headers}});if(!response.ok){let message;try{message=(await response.json()).error}catch{}throw Error(message||'Ошибка локального аудиодвижка')}return response};
     const stop=()=>{cancelled=true;abort.abort();dialog.close()};cancel.onclick=stop;dialog.oncancel=e=>{e.preventDefault();stop()};separationActive=true;pause();dialog.showModal();
     try{
-      const info=await(await request('/info')).json();if(!info.ready)throw Error(info.error||'Аудиодвижок не установлен');token=info.token;
+      let info=await(await request('/info')).json();if(!info.ready&&info.installable){await offerAudioModule(dialog,status,progress,abort);info=await(await request('/info')).json()}if(!info.ready)throw Error(info.error||'Аудиодвижок не установлен');token=info.token;
       status.textContent='Подготавливаю выбранный фрагмент. Файлы остаются на компьютере.';
       const job=await(await request('/jobs?start='+encodeURIComponent(source.sourceIn||0)+'&length='+encodeURIComponent(source.duration*(source.speed||1)),{method:'POST',body:asset.file})).json();jobId=job.id;
       const phases={extracting:'Извлекаю звук выбранного фрагмента…',loading:'Загружаю модель разделения…',separating:'Разделяю речь, музыку и звуки…',saving:'Сохраняю три звуковые дорожки…'};

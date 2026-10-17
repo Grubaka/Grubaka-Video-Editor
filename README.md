@@ -1,8 +1,18 @@
 # Grubaka Video Editor
 
-[English](#english) · [Русский](#русский)
+[Download Windows app](https://github.com/Grubaka/Grubaka-Video-Editor/releases/latest) · [English](#english) · [Русский](#русский)
 
 ## English
+
+### Download the ready-to-run Windows app
+
+**[Download the Windows x64 release](https://github.com/Grubaka/Grubaka-Video-Editor/releases/latest)** — no Node.js, Python or console commands needed.
+
+1. Download `Grubaka-Video-Editor-1.0.0-Windows-x64.zip` from the release **Assets**.
+2. Extract the entire ZIP to a folder on your computer.
+3. Double-click **`Start Grubaka Video Editor.lnk`** in that folder.
+
+The compact application includes Electron and FFmpeg. Audio separation is an optional module: on first use, click **Download audio separation module**. The editor downloads and connects it automatically (about 560 MB), including its own Python and model. No manual installation is needed. After this one-time download, separation works offline on the CPU. Keep the shortcut and the `app` folder together. The GitHub **Source code** archives are for developers; choose the Windows application ZIP to run the editor.
 
 A local video editor for Windows with a multitrack timeline, linked video and audio, captions, timers, chroma key, cropping, slow motion, video conversion, and audio separation into speech, music and effects.
 
@@ -47,6 +57,7 @@ Save the whole edit, selected clips, or audio only as MP3.
 - `editor/` — browser editor files; the launcher enters this folder automatically.
 - `desktop/` — Electron shell with a dedicated window, internal server, project saving on exit and processing shutdown when the app closes.
 - `tools/build-windows.py` — assembles the Windows application in a separate folder.
+- `tools/package-windows-release.py` — packages the assembled app with a portable shortcut, ZIP and SHA256 checksum.
 
 The built application, FFmpeg, Python, PyTorch and model weights are not stored in Git. Application archives are intended for GitHub Releases. Source footage, user projects, machine-specific settings and autosave data are excluded.
 
@@ -85,6 +96,16 @@ Audio separation may leave traces of other components; results depend on the sou
 ---
 
 ## Русский
+
+### Скачать готовое приложение для Windows
+
+**[Скачать выпуск для Windows x64](https://github.com/Grubaka/Grubaka-Video-Editor/releases/latest)** — установка Node.js, Python и команды в консоли не нужны.
+
+1. В разделе **Assets** скачайте `Grubaka-Video-Editor-1.0.0-Windows-x64.zip`.
+2. Полностью распакуйте ZIP в папку на компьютере.
+3. Дважды щёлкните **`Start Grubaka Video Editor.lnk`** в этой папке.
+
+Компактное приложение содержит Electron и FFmpeg. Разделение звука подключается отдельно: при первом использовании нажмите **«Скачать модуль разделения звука»**. Редактор сам скачает и подключит модуль (около 560 МБ), со встроенными Python и моделью. Вручную устанавливать ничего не нужно. После первой загрузки разделение работает офлайн на процессоре. Храните ярлык рядом с папкой `app`. Архивы GitHub **Source code** предназначены для разработчиков; для запуска выбирайте ZIP готового Windows-приложения.
 
 Локальный видеоредактор для Windows: многодорожечный монтаж, связанное видео и звук, титры, счётчики, хромакей, обрезка, слоумоушен, конвертация и разделение аудио на речь, музыку и эффекты.
 
@@ -129,6 +150,7 @@ Audio separation may leave traces of other components; results depend on the sou
 - `editor/` — файлы браузерного редактора; BAT сам переходит в эту папку.
 - `desktop/` — оболочка Electron: отдельное окно, внутренний сервер, сохранение проекта при выходе, остановка обработки вместе с приложением.
 - `tools/build-windows.py` — сборка приложения в отдельную папку.
+- `tools/package-windows-release.py` — упаковка готового приложения с переносимым ярлыком, ZIP и контрольной суммой SHA256.
 
 Готовое приложение, FFmpeg, Python, PyTorch и веса модели не хранятся в Git. Архивы приложения предназначены для GitHub Releases. Исходные видео, пользовательские проекты, настройки компьютера и автокопии не включены.
 

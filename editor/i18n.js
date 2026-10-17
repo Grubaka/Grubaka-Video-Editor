@@ -3,6 +3,15 @@
   'use strict';
   const STORAGE_KEY = 'grubaka.editor.language';
   const dictionary = {
+  "Скачать модуль разделения звука": "Download audio separation module",
+  "Модуль скачивается один раз. Python устанавливать не нужно. После загрузки разделение работает без интернета.": "Download this module once. No Python installation is needed. Audio separation then works offline.",
+  "Для разделения речи, музыки и звуков нужен дополнительный модуль.": "An optional module is needed to separate speech, music and effects.",
+  "Скачиваю модуль разделения звука…": "Downloading audio separation module…",
+  "Проверяю и подключаю модуль…": "Verifying and installing module…",
+  "Модуль подключён. Подготавливаю разделение…": "Module installed. Preparing audio separation…",
+  "Не удалось подключить аудиомодуль": "Could not connect to the audio module",
+  "Не удалось загрузить модуль. Повторите попытку.": "Could not download the module. Try again.",
+
   "Для конвертации запускайте редактор через «Start Offline Editor.bat».": "Open the converter from the desktop app or launch it using «Start Offline Editor.bat».",
   "Для обработки запускайте редактор через «Start Offline Editor.bat».": "Use the desktop app or launch the editor using «Start Offline Editor.bat» to process files.",
   "Перетащите переход на видео или текст. Переход действует в начале ячейки. Крестик на ячейке удаляет переход; правая ручка меняет его длительность": "Drag a transition onto a video or text clip. It starts at the beginning of the clip. Click the cross to remove it; drag the right handle to change its duration",
