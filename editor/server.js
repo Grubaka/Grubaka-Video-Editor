@@ -15,7 +15,7 @@ http.createServer(async (req,res) => {
   let pathname;try{pathname=decodeURIComponent(url.pathname)}catch{res.writeHead(400);return res.end('Bad request')}
   const name = pathname === '/' ? 'index.html' : pathname.slice(1);
   const file = path.resolve(root,name);
-  if (!file.startsWith(root + path.sep) || !(['index.html','chroma-key.js','app.js','style.css','lame.min.js','guide.html','converter.html','converter.js','converter.css','slow-motion.html','slow-motion.js'].includes(name)||/^guide-assets\/[a-z0-9-]+\.(png|svg)$/.test(name))) {
+  if (!file.startsWith(root + path.sep) || !(['index.html','i18n.js','chroma-key.js','app.js','style.css','lame.min.js','guide.html','converter.html','converter.js','converter.css','slow-motion.html','slow-motion.js'].includes(name)||/^guide-assets\/[a-z0-9-]+\.(png|svg)$/.test(name))) {
     res.writeHead(404); return res.end('Not found');
   }
   fs.readFile(file,(err,data) => {
