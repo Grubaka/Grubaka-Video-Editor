@@ -26,7 +26,8 @@
 
 ## Структура
 
-- `editor/` — версия для браузера, запускаемая через BAT / Node.js.
+- `Start Offline Editor.bat` — запуск браузерной версии из корня комплекта.
+- `editor/` — файлы браузерного редактора; BAT сам переходит в эту папку.
 - `desktop/` — оболочка Electron: отдельное окно, внутренний сервер, сохранение проекта при выходе, остановка обработки вместе с приложением.
 - `tools/build-windows.py` — сборка приложения в отдельную папку.
 
@@ -34,7 +35,7 @@
 
 ## Запуск версии с BAT
 
-Нужен Node.js. Разместите `ffmpeg.exe` и `ffprobe.exe` в `editor/bin/` (источник и лицензия: `editor/bin/SOURCE.txt`), затем запустите `editor/Запустить редактор.bat`. Для разделения аудио настройте `editor/audio-engine.local.json` по образцу `audio-engine.example.json`.
+Нужен Node.js. Разместите `ffmpeg.exe` и `ffprobe.exe` в `editor/bin/` (источник и лицензия: `editor/bin/SOURCE.txt`), затем запустите `Start Offline Editor.bat` из корня комплекта. Перемещать его в `editor/` не требуется. Для разделения аудио настройте `editor/audio-engine.local.json` по образцу `audio-engine.example.json`.
 
 ## Сборка Windows-приложения
 

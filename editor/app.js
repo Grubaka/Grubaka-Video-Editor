@@ -306,7 +306,7 @@
     const track=asset.type==='audio'?currentAudioTrack():currentVisualTrack();if(!track)return toast('Добавьте дорожку');createItem(id,track.id);
   }
   function openSlowMotion(item=null){
-    if(exporting)return;if(location.protocol==='file:')return toast('Запустите редактор через «Запустить редактор.bat», чтобы использовать слоу-моушен.');
+    if(exporting)return;if(location.protocol==='file:')return toast('Запустите редактор через «Start Offline Editor.bat», чтобы использовать слоу-моушен.');
     const asset=item?assets.get(item.assetId):null;if(item&&!asset?.file)return toast('Исходное видео недоступно. Добавьте его в Медиа.');
     pause();const popup=window.open('slow-motion.html','_blank');if(!popup)return toast('Разрешите открытие окна слоу-моушен в браузере.');
     const onMessage=async event=>{if(event.origin!==location.origin||event.source!==popup)return;
@@ -864,7 +864,7 @@
     if(selectedSource?.separationSourceId){const original=findItem(selectedSource.separationSourceId)?.item,ready=(original?.separationResultIds||[]).map(findItem).filter(Boolean);if(ready.length===3){const target=ready.find(e=>e.item.stem===focusStem);if(target)selectItem(target.item.id);return toast('Выбран готовый компонент без повторного разделения.')}}
     const found=findItem(id),source=found?.item,asset=assets.get(source?.assetId);
     if(!source||source.kind!=='audio'||found.track.locked)return toast('Выберите звук на разблокированной дорожке');
-    if(location.protocol==='file:')return toast('Запустите редактор через «Запустить редактор.bat»');if(!asset?.file)return toast('Загрузите исходное медиа заново');
+    if(location.protocol==='file:')return toast('Запустите редактор через «Start Offline Editor.bat»');if(!asset?.file)return toast('Загрузите исходное медиа заново');
     const previous=(source.separationResultIds||[]).map(findItem).filter(Boolean);if(previous.length===3){const target=previous.find(e=>e.item.stem===focusStem);if(target)selectItem(target.item.id);return toast('Компоненты этой ячейки уже разделены. Они на Voice, SFX и Music.')}
     const signature=JSON.stringify([source.assetId,source.sourceIn||0,source.duration,source.speed||1]),epoch=projectEpoch,abort=new AbortController(),prepared=[];let jobId,token,cancelled=false,committed=false;
     const dialog=document.createElement('dialog');dialog.className='modal separation-dialog';dialog.setAttribute('aria-label','Разделение звука');const heading=document.createElement('h2');heading.textContent='Речь, звуки и музыка';const status=document.createElement('p');status.className='note';status.setAttribute('role','status');status.textContent='Проверяю локальный аудиодвижок…';const progress=document.createElement('progress');progress.setAttribute('aria-label','Выполняется разделение звука');const cancel=document.createElement('button');cancel.type='button';cancel.className='sidebar-action';cancel.textContent='Отмена';dialog.append(heading,status,progress,cancel);document.body.append(dialog);

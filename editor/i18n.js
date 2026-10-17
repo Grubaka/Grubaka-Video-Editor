@@ -3,8 +3,8 @@
   'use strict';
   const STORAGE_KEY = 'grubaka.editor.language';
   const dictionary = {
-  "Для конвертации запускайте редактор через «Запустить редактор.bat».": "Open the converter from the desktop app or launch it using «Запустить редактор.bat».",
-  "Для обработки запускайте редактор через «Запустить редактор.bat».": "Use the desktop app or launch the editor using «Запустить редактор.bat» to process files.",
+  "Для конвертации запускайте редактор через «Start Offline Editor.bat».": "Open the converter from the desktop app or launch it using «Start Offline Editor.bat».",
+  "Для обработки запускайте редактор через «Start Offline Editor.bat».": "Use the desktop app or launch the editor using «Start Offline Editor.bat» to process files.",
   "Перетащите переход на видео или текст. Переход действует в начале ячейки. Крестик на ячейке удаляет переход; правая ручка меняет его длительность": "Drag a transition onto a video or text clip. It starts at the beginning of the clip. Click the cross to remove it; drag the right handle to change its duration",
   "Оптический поток работает на процессоре без интернета. Это не нейросеть; обработка может занять время. На резких движениях возможны искажения": "Optical flow runs locally on the CPU. It is not a neural network; processing may take time. Fast motion can cause artifacts",
   "С какой секунды исходного файла начинается фрагмент. Меняет обрезку слева, сохраняя выбранный конец. Возврат к 0 восстанавливает начало файла": "The source time where this clip begins. Trims the left edge while keeping the selected end. Set to 0 to restore the beginning of the file",

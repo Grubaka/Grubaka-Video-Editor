@@ -11,7 +11,7 @@ if (base/'electron.exe').exists():(base/'electron.exe').rename(base/'РњРѕР�
 app=base/'resources/app';app.mkdir(parents=True,exist_ok=True)
 shutil.copytree('desktop',app,dirs_exist_ok=True)
 editor=app/'editor'
-def ignored(folder,names):return [n for n in names if n in ['__pycache__','audio-engine.local.json','Р—Р°РїСѓСЃС‚РёС‚СЊ СЂРµРґР°РєС‚РѕСЂ.bat']]
+def ignored(folder,names):return [n for n in names if n in ['__pycache__','audio-engine.local.json','Start Offline Editor.bat']]
 shutil.copytree('editor',editor,dirs_exist_ok=True,ignore=ignored)
 # Only the new application copy receives desktop integration; BAT editor stays unchanged.
 p=editor/'audio-separator-server.js';text=p.read_text(encoding='utf-8-sig').replace("const config=()=>{try{", "const config=()=>{if(process.env.MONTAZHNAYA_PYTHON&&process.env.MONTAZHNAYA_AUDIO_WEIGHTS)return {python:process.env.MONTAZHNAYA_PYTHON,weights:process.env.MONTAZHNAYA_AUDIO_WEIGHTS};try{");p.write_text(text,encoding='utf-8')
