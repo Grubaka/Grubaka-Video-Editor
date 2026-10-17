@@ -309,7 +309,7 @@
   "Выберите видео или фото": "Select a video or image",
   "Выберите участок короче": "Choose a shorter section",
   "Добавьте клипы на линию": "Add clips to the timeline",
-  "Инструкция с картинками": "Illustrated guide (Russian)",
+  "Инструкция с картинками": "Illustrated guide",
   "Исходный звук приглушён": "Original audio muted",
   "Масштаб монтажной линии": "Timeline zoom",
   "Например: удачный дубль": "For example: best take",
